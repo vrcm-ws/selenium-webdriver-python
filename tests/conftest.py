@@ -22,6 +22,9 @@ def driver(request: Any) -> Iterator[WebDriver]:
         print(f"Browser {browser} not supported, using Chrome instead")
         web_driver = webdriver.Chrome()
 
+    #Implicit Wait
+    #web_driver.implicitly_wait(5)
+
     yield web_driver
 
     web_driver.quit()

@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 
 from utilities.data_loader import load_json_data
 
@@ -58,7 +59,8 @@ class TestLoginPage:
         assert web_element.text == expected_message
 
         #Verify button Log out is displayed on the new page
-        web_element = driver.find_element(By.XPATH, logout_locator)
+        web_element = wait.until(expected_conditions.visibility_of_element_located((By.XPATH, logout_locator)))
+        #web_element = driver.find_element(By.XPATH, logout_locator)
 
         assert web_element.is_displayed()
 
@@ -96,7 +98,8 @@ class TestLoginPage:
         driver.find_element(By.XPATH, submit_button_locator).click()
 
         #Verify error message is displayed
-        web_element = driver.find_element(By.XPATH, error_message_locator)
+        #web_element = driver.find_element(By.XPATH, error_message_locator)
+        web_element = wait.until(expected_conditions.visibility_of_element_located((By.XPATH, error_message_locator)))
         assert web_element.is_displayed()
 
         #Verify error message text is Your username is invalid!
